@@ -13,9 +13,10 @@ import java.util.ArrayList;
  * Created by Luis on 27/04/2018.
  */
 
-public class AdaptadorPersonajes extends RecyclerView.Adapter<AdaptadorPersonajes.ViewHolderPersonajes>{
+public class AdaptadorPersonajes extends RecyclerView.Adapter<AdaptadorPersonajes.ViewHolderPersonajes> implements View.OnClickListener{
 
     ArrayList<PersonajeVo> listaPersonajes;
+    private View.OnClickListener listener;
 
     public AdaptadorPersonajes(ArrayList<PersonajeVo> listaPersonajes) {
         this.listaPersonajes = listaPersonajes;
@@ -25,6 +26,8 @@ public class AdaptadorPersonajes extends RecyclerView.Adapter<AdaptadorPersonaje
     public ViewHolderPersonajes onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_list_personajes, null, false);
+
+        view.setOnClickListener(this);
         return new ViewHolderPersonajes(view);
     }
 
@@ -38,6 +41,17 @@ public class AdaptadorPersonajes extends RecyclerView.Adapter<AdaptadorPersonaje
     @Override
     public int getItemCount() {
         return listaPersonajes.size();
+    }
+
+    public void setOnClickListener(View.OnClickListener listener){
+    this.listener = listener;
+    }
+
+    @Override
+    public void onClick(View view) {
+    if( listener!= null){
+        listener.onClick(view);
+    }
     }
 
     public class ViewHolderPersonajes extends RecyclerView.ViewHolder {
